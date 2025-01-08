@@ -3,14 +3,17 @@
 
                       5              5              300       13
 DequeConsumer:                                                                 
-total req  27_995_194            
+total req  27_995_194          
 prs        35_839
+MapConsumer:
+total req  x            
+prs        x
 
                       10             10             300       13                       
 DequeConsumer:
 total req  28_416_458 
 prs        36_420
-
+  
                       1              5              60        13                       
 DynamicCountConsumer:
 total req  40_216_141
@@ -57,8 +60,11 @@ put/read elements with sleep 100 ms
 
                       5              5         300          13                       
 DynamicCountConsumer:                                                          
-total req  37740                 
-prs        48
+total req  75_429                 
+prs        96
 DequeConsumer:                                                                 
-total req  37390                 
-prs        47.9
+total req  74_472                 
+prs        95
+MapConsumer:
+total req  75_325        
+prs        96

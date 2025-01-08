@@ -10,21 +10,22 @@ public class CacheImplTypesBenchmark {
 
     private static final int WRITE_THREAD_COUNT = 5;
     private static final int READ_THREAD_COUNT = 5;
-    private static final int TTL_SECONDS = 300;
+    private static final int TTL_SECONDS = 5;
     private static final long TEST_DURATION_MINUTES = 13;
 
     public static void main(String[] args) throws InterruptedException {
-        Consumer dynamicCountConsumer = new DynamicCountConsumer(TTL_SECONDS);
-        Consumer dequeConsumer = new DequeConsumer(TTL_SECONDS);
-
-        extracted(dynamicCountConsumer, "DynamicCountConsumer");
+        //Consumer dynamicCountConsumer = new DynamicCountConsumer(TTL_SECONDS);
+        //test(dynamicCountConsumer, "DynamicCountConsumer");
 
         System.gc();
+        //Consumer dequeConsumer = new DequeConsumer(TTL_SECONDS);
+        //test(dequeConsumer, "DequeConsumer");
 
-        extracted(dequeConsumer, "DequeConsumer");
+        Consumer mapConsumer = new MapConsumer(TTL_SECONDS);
+        test(mapConsumer, "MapConsumer");
     }
 
-    private static void extracted(Consumer consumer, String consumerImplName) throws InterruptedException {
+    private static void test(Consumer consumer, String consumerImplName) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(WRITE_THREAD_COUNT + READ_THREAD_COUNT);
         ExecutorService executorService = Executors.newFixedThreadPool(WRITE_THREAD_COUNT + READ_THREAD_COUNT);
 
@@ -37,12 +38,9 @@ public class CacheImplTypesBenchmark {
             executorService.submit(() -> {
                 try {
                     while (System.currentTimeMillis() < endTime) {
-                        Thread.sleep(100);
                         consumer.accept((int) (Math.random() * 100));
                         totalRequests.incrementAndGet();
                     }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
@@ -53,11 +51,8 @@ public class CacheImplTypesBenchmark {
             executorService.submit(() -> {
                 try {
                     while (System.currentTimeMillis() < endTime) {
-                        Thread.sleep(100);
                         consumer.mean();
                     }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
