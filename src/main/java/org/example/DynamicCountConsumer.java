@@ -49,6 +49,6 @@ public class DynamicCountConsumer implements Consumer, AutoCloseable {
 
     @Override
     public void close() throws Exception {
-        executorService.shutdown();
+        executorService.shutdownNow();
     }
 }
