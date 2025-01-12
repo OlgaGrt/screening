@@ -1,70 +1,29 @@
-                      WRITE_THREADS | READ_THREADS | TTL     | TEST_DURATION |
-                      COUNT         | COUNT        | SECONDS | MINUTES
-
-                      5              5              300       13
-DequeConsumer:                                                                 
-total req  27_995_194          
-prs        35_839
-MapConsumer:
-total req  x            
-prs        x
-
-                      10             10             300       13                       
-DequeConsumer:
-total req  28_416_458 
-prs        36_420
-  
-                      1              5              60        13                       
-DynamicCountConsumer:
-total req  40_216_141
-prs        51_554
-DequeConsumer:
-total req  5_026_833
-prs        6_444
-
-                      5              1              60        13                       
-DynamicCountConsumer:                                                          
-total req  10_269_601            
-prs        13_166
-DequeConsumer:                                                                 
-total req  94_623_935            
-prs        121_273
-
-                      1              1              60        13                       
-DynamicCountConsumer:                                                          
-total req  17_400_719            
-prs        22_308
-DequeConsumer:                                                                 
-total req  59_687_438            
-prs        76_520
-
-                      5              5              60        13                       
-DynamicCountConsumer:                                                          
-total req  9_207_348             
-prs        11_804
-DequeConsumer:                                                                 
-total req  65_605_830            
-prs        84_104
-
-                      10             10             60        13                       
-DynamicCountConsumer:                                                          
-total req  11_818_089            
-prs        15_151
-DequeConsumer:                                                                 
-total req  69_408_805            
-prs        88_961
+ttl=3 sec
 
 
+### acceptThread:1  meanThread:1
+|                     | RUNNABLE | TIMED_WAITING | WAITING | testConsumerAcceptMethod   | testConsumerMeanMethod   |
+|---------------------|----------|---------------|---------|----------------------------|--------------------------|
+|DequeConsumer        | 60,0%    | 20,0%         | 20,0%   |  279,259 ±   5,163  ops/s  |   0,914 ±   0,033  ops/s |
+|MapConsumer          | 78,4%    | 21,6%         |         | 3782,671 ± 856,390  ops/s  |   0,135 ±   0,148  ops/s |
+|DynamicCountConsumer | 10,7%    | 6,6%          | 82,7%   |  113,396 ±  16,107  ops/s  | 120,207 ±  26,100  ops/s |
 
-put/read elements with sleep 100 ms
+### acceptThread:1  meanThread:5
+|                      | RUNNABLE | TIMED_WAITING | WAITING | testConsumerAcceptMethod   | testConsumerMeanMethod   |
+|----------------------|----------|---------------|---------|----------------------------|--------------------------|
+| DequeConsumer        | 43,1%    | 11,1%         | 45,7%   |  161,784 ±  23,838  ops/s  |   2,841 ±   0,259  ops/s |
+| MapConsumer          | 85,9%    | 13,1%         | 0,9%    | 2806,024 ± 731,047  ops/s  |  57,653 ± 412,370  ops/s |
+| DynamicCountConsumer | 8,7%     | 6,9%          | 84,5%   |   52,828 ±   3,085  ops/s  | 264,125 ±  15,429  ops/s |
 
-                      5              5         300          13                       
-DynamicCountConsumer:                                                          
-total req  75_429                 
-prs        96
-DequeConsumer:                                                                 
-total req  74_472                 
-prs        95
-MapConsumer:
-total req  75_325        
-prs        96
+### acceptThread:5  meanThread:1
+|                      | RUNNABLE | TIMED_WAITING | WAITING | testConsumerAcceptMethod   | testConsumerMeanMethod    |
+|----------------------|----------|---------------|---------|----------------------------|---------------------------|
+| DequeConsumer        | 33,4%    | 11,1%         | 55,5%   |  404,471 ±   39,669  ops/s | 0,603 ±    0,019  ops/s   |
+| MapConsumer          | 86,3%    | 13,4%         | 0,3%    | 4558,336 ±  501,244  ops/s | 900,819 ± 3728,496  ops/s |
+| DynamicCountConsumer | 9,0%     | 5,6%          | 85,4%   |  159,321 ±   25,210  ops/s | 31,865 ±    5,068  ops/s  |
+
+### acceptThread:5  meanThread:5
+|                       | RUNNABLE | TIMED_WAITING | WAITING | testConsumerAcceptMethod   | testConsumerMeanMethod   |
+|-----------------------|----------|---------------|---------|----------------------------|--------------------------|
+| DequeConsumer         | 26,3%    | 7,7%          | 66,0%   | 267,791 ± 46,644  ops/s    |   1,061 ±  0,520  ops/s  |
+|  DynamicCountConsumer | 7,9%     | 5,3%          | 86,8%   | 115,836 ±  2,025  ops/s    | 115,833 ±  1,980  ops/s  |

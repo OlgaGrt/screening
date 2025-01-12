@@ -27,7 +27,7 @@ public class ConsumerImplTest {
         consumer.accept(1);
         consumer.accept(2);
 
-        assertEquals(1.5, consumer.mean(), 0.001);
+        assertEquals(1.5, consumer.mean());
     }
 
     @ParameterizedTest
@@ -37,7 +37,7 @@ public class ConsumerImplTest {
 
         TimeUnit.SECONDS.sleep(CONSUMER_TTL_SECONDS + 1);
 
-        assertEquals(0.0, consumer.mean(), 0.001);
+        assertEquals(0.0, consumer.mean());
     }
 
     @ParameterizedTest
@@ -45,7 +45,7 @@ public class ConsumerImplTest {
     public void testSingleElement(Consumer consumer) {
         consumer.accept(5);
 
-        assertEquals(5.0, consumer.mean(), 0.001);
+        assertEquals(5.0, consumer.mean());
     }
 
     @ParameterizedTest
@@ -55,13 +55,13 @@ public class ConsumerImplTest {
         consumer.accept(2);
         consumer.accept(3);
 
-        assertEquals(2.0, consumer.mean(), 0.001);
+        assertEquals(2.0, consumer.mean());
 
         TimeUnit.SECONDS.sleep(CONSUMER_TTL_SECONDS);
 
         consumer.accept(4);
         consumer.accept(5);
 
-        assertEquals(4.5, consumer.mean(), 0.001);
+        assertEquals(4.5, consumer.mean());
     }
 }
